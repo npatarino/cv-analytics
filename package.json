@@ -1,0 +1,18 @@
+{
+  "name": "@chimichurricode/analytics",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Shared analytics + web vitals client for Chimi sites. Adapter-based: switch providers without touching app code.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "web-vitals": "^4.2.0"
+  },
+  "files": [
+    "src",
+    "dist"
+  ]
+}
