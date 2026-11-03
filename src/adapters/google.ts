@@ -22,10 +22,14 @@ export const googleAdapter: AnalyticsAdapter = {
     cfg = c;
     if (typeof window === "undefined" || injected) return;
 
-    // Use provided measurementId or fallback to an env var (which consumers might provide)
-    const measurementId = c.measurementId || (typeof process !== "undefined" && process.env?.PUBLIC_GA_ID) || "G-PLACEHOLDER";
+    // The measurement ID must come from the caller (e.g. Astro's
+    // `import.meta.env.PUBLIC_GA_ID`). `process.env` doesn't exist in the
+    // browser, and bundlers replace it with `{}`, so there is no fallback.
+    // Without an ID the adapter stays inert: no gtag script, no events.
+    const measurementId = c.measurementId?.trim();
     if (!measurementId || measurementId === "G-PLACEHOLDER") {
-      console.warn("[chimi-analytics] Google Analytics adapter initialized without a valid measurementId.");
+      console.warn("[chimi-analytics] Google Analytics adapter has no measurementId; events are not sent.");
+      return;
     }
 
     // Inject the main gtag script

@@ -1,14 +1,14 @@
 /**
- * @chimi/analytics — adapter-based analytics + web vitals client.
+ * @chimichurricode/analytics — adapter-based analytics + web vitals client.
  *
  * Usage (in a site's base layout):
  *
- *   import { initAnalytics } from "@chimi/analytics";
- *   initAnalytics({ site: "blog", adapter: "google", perf: true });
+ *   import { initAnalytics } from "@chimichurricode/analytics";
+ *   initAnalytics({ site: "blog", adapter: "google", measurementId: import.meta.env.PUBLIC_GA_ID, perf: true });
  *
  * Usage (in any client component):
  *
- *   import { track } from "@chimi/analytics";
+ *   import { track } from "@chimichurricode/analytics";
  *   track("rfp_chip_click", { style: "humorous" });
  */
 import type { AdapterName, EventProps, InitOptions } from "./core/types";
@@ -29,7 +29,7 @@ export function initAnalytics(opts: InitOptions): void {
 
   const adapters = resolveAdapters(wantedNames);
   for (const a of adapters) {
-    try { a.init({ site: opts.site, environment: opts.environment }); }
+    try { a.init({ site: opts.site, environment: opts.environment, measurementId: opts.measurementId }); }
     catch (e) { console.warn(`[chimi-analytics] adapter ${a.name} failed to init`, e); }
   }
   setState(adapters, opts);

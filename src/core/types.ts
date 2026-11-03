@@ -12,7 +12,7 @@ export interface AdapterConfig {
   site: string;
   /** Build/runtime tag, e.g. "production" or "preview". */
   environment?: string;
-  /** Google Analytics Measurement ID (e.g. G-XXXXXXX). Defaults to env variable if not provided. */
+  /** Google Analytics Measurement ID (e.g. G-XXXXXXX). Without it the google adapter sends nothing. */
   measurementId?: string;
 }
 
@@ -36,6 +36,7 @@ export interface AnalyticsAdapter {
 
 export interface InitOptions {
   site: string;
+  /** Google Analytics Measurement ID (e.g. G-XXXXXXX), required by the google adapter. */
   measurementId?: string;
   /** Single adapter or an array (events fan out to all). */
   adapter?: AdapterName | AdapterName[];
